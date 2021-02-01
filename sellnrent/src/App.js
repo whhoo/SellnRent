@@ -2,12 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
-    <div >
-      asdiuwhawiudb
-      
-    </div>
-  );
+  return 
 }
 
 export default App;
