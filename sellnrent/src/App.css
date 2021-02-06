@@ -1,38 +1,45 @@
-.App {
-  text-align: center;
+body{
+  width: 100%;
+}
+.lgofflogo{
+  width: 60px;
+  margin-left:40%;
+  margin-right:45%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.lginlogo{
+  width: 60px;
+  margin-left:40%;
+  margin-right:35%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.drop{
+  display: inline-block;
+  margin-left: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.select{
+  width:500px;
+  margin:0;
 }
 
-.App-link {
-  color: #61dafb;
+.search{
+  margin-left: 30%;
+  margin-top: 10%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sbutt{
+  position: relative;
+  left: 520px;
+  bottom: 35px;
+}
+
+.buycheck{
+  position: relative;
+  left: 600px;
+}
+
+.rentcheck{
+  position: relative;
+  left: 800px;
 }
