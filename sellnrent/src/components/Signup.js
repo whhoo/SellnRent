@@ -23,8 +23,6 @@ export default function Signup(props) {
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
             .then(()=>{
-                debugger;
-                props.setUser(currentUser);
                 window.location = '/';
             });
         } catch {

@@ -1,16 +1,17 @@
 import logo from "../logo.png";
 import Drop from './Drop'
+import {useAuth} from '../contexts/AuthContext'
 
 export default function Header(props) {
-    debugger
+    const {currentUser} = useAuth();
 
-    if (props.user) {
+    if (currentUser) {
         return (
             <div className="header">
                 <a href="/">Search</a>
                 <img src={logo} className="lginlogo"/>
                 <a href="/add">Add</a>
-                <Drop setUser={props.setUser}/>
+                <Drop />
             </div>
         );
     } else {
