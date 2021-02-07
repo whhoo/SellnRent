@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Home from './components/Home';
 import {
   BrowserRouter as Router,
@@ -12,10 +12,6 @@ import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
 
-  const [user, setUser] = useState(null);
-
-  debugger
-
   return (
     <Router>
       <Switch>
@@ -23,13 +19,15 @@ function App() {
           <AuthProvider>
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
-                <Signup user={user} setUser={setUser}/>
+                <Signup />
               </div>
             </Container>
           </AuthProvider>
         </Route>
         <Route path="/">
-          <Home user={user} setUser={setUser}/>
+          <AuthProvider>
+            <Home />
+          </AuthProvider>
         </Route>
       </Switch>
     </Router>

@@ -11,7 +11,7 @@ export default function Home(props) {
 
     return (
         <>
-            <Header user={props.user} setUser={props.setUser} />
+            <Header/>
             <Search />
             <Checkbox setSearchBuy={setSearchBuy} setSearchRent={setSearchRent} />
         </>
