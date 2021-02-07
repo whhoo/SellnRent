@@ -2,14 +2,15 @@ import logo from "../logo.png";
 import Drop from './Drop'
 
 export default function Header(props) {
+    debugger
 
-    if (props.isLoggedIn) {
+    if (props.user) {
         return (
             <div className="header">
                 <a href="/">Search</a>
                 <img src={logo} className="lginlogo"/>
                 <a href="/add">Add</a>
-                <Drop setIsLoggedIn={props.setIsLoggedIn}/>
+                <Drop setUser={props.setUser}/>
             </div>
         );
     } else {
@@ -17,7 +18,7 @@ export default function Header(props) {
             <div className="header">
                 <a href="/">Search</a>
                 <img src={logo} className="lgofflogo"/>
-                <a href="/login">Login</a>
+                <a href="/signup">Login</a>
             </div>
         );
     }
