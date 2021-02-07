@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Home from './components/Home';
 import {
   BrowserRouter as Router,
@@ -9,27 +8,33 @@ import './App.css';
 import Signup from './components/Signup';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
+import Signin from './components/Signin';
 
 function App() {
 
   return (
     <Router>
-      <Switch>
-        <Route path="/signup">
-          <AuthProvider>
+      <AuthProvider>
+        <Switch>
+          <Route path="/signup">
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
                 <Signup />
               </div>
             </Container>
-          </AuthProvider>
-        </Route>
-        <Route path="/">
-          <AuthProvider>
+          </Route>
+          <Route path="/signin">
+            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: "400px" }}>
+                <Signin />
+              </div>
+            </Container>
+          </Route>
+          <Route path="/">
             <Home />
-          </AuthProvider>
-        </Route>
-      </Switch>
+          </Route>
+        </Switch>
+      </AuthProvider>
     </Router>
   )
 }

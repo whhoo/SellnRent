@@ -1,6 +1,6 @@
 import logo from "../logo.png";
-import Drop from './Drop'
-import {useAuth} from '../contexts/AuthContext'
+import Drop from './Drop';
+import {useAuth} from '../contexts/AuthContext';
 
 export default function Header(props) {
     const {currentUser} = useAuth();
@@ -9,7 +9,7 @@ export default function Header(props) {
         return (
             <div className="header">
                 <a href="/">Search</a>
-                <img src={logo} className="lginlogo"/>
+                <img src={logo} className="lginlogo" alt=""/>
                 <a href="/add">Add</a>
                 <Drop />
             </div>
@@ -18,8 +18,8 @@ export default function Header(props) {
         return (
             <div className="header">
                 <a href="/">Search</a>
-                <img src={logo} className="lgofflogo"/>
-                <a href="/signup">Login</a>
+                <img src={logo} className="lgofflogo" alt=""/>
+                <a href="/signin">Login</a>
             </div>
         );
     }
