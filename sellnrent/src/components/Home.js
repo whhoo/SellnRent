@@ -3,14 +3,15 @@ import Search from './Search';
 import Checkbox from './Checkbox'
 import { useState } from 'react';
 
-export default function Home() {
-    const [isLoggedIn, setIsLoggedIn] = useState();
+export default function Home(props) {
     const [searchBuy, setSearchBuy] = useState(false);
     const [searchRent, setSearchRent] = useState(false);
 
+    debugger
+
     return (
         <>
-            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Header user={props.user} setUser={props.setUser} />
             <Search />
             <Checkbox setSearchBuy={setSearchBuy} setSearchRent={setSearchRent} />
         </>

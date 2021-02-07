@@ -14,7 +14,7 @@ export default function Drop(props){
                     <DropdownMenu>
                         <DropdownItem onClick={() => window.location = '/account'}>My Account</DropdownItem>
                         <DropdownItem onClick={() => window.location = '/posts'}>My Posts</DropdownItem>
-                        <DropdownItem onClick={() => props.setIsLoggedIn(false)}>Log out</DropdownItem>
+                        <DropdownItem onClick={() => props.setUser({qwe:'wd'})}>Log out</DropdownItem>
                     </DropdownMenu>
         </Dropdown>
     )
