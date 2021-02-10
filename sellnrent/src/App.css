@@ -43,3 +43,12 @@ body{
   position: relative;
   left: 800px;
 }
+.account {
+  display: flex;
+  margin-top: 70px;
+  width: 100%;
+}
+.column {
+  margin-left: 150px;
+  width: 30%;
+}

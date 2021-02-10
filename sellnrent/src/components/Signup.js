@@ -4,10 +4,13 @@ import { useAuth } from '../contexts/AuthContext';
 import {Link, useHistory} from 'react-router-dom';
 
 export default function Signup() {
+    const nameRef = useRef();
+    const surnameRef = useRef();
+    const phoneRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
+    const { signup} = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -22,7 +25,8 @@ export default function Signup() {
         try {
             setError('');
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value);
+            console.log(phoneRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value + ' ' + surnameRef.current.value, +phoneRef.current.value);
             history.push('/');
         } catch {
             setError('Failed to create an account');
@@ -38,6 +42,18 @@ export default function Signup() {
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group id="name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="name" ref={nameRef} required />
+                        </Form.Group>
+                        <Form.Group id="surname">
+                            <Form.Label>Surname</Form.Label>
+                            <Form.Control type="surname" ref={surnameRef} required />
+                        </Form.Group>
+                        <Form.Group id="phone">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="phone" ref={phoneRef} required />
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required />

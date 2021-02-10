@@ -9,12 +9,15 @@ import Signup from './components/Signup';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
 import Signin from './components/Signin';
+import Header from './components/Header';
+import MyAccount from './components/MyAccount';
 
 function App() {
 
   return (
-    <Router>
-      <AuthProvider>
+    <AuthProvider>
+      <Router >
+        <Header/>
         <Switch>
           <Route path="/signup">
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
@@ -30,12 +33,15 @@ function App() {
               </div>
             </Container>
           </Route>
+          <Route path="/account">
+            <MyAccount />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
   )
 }
 
