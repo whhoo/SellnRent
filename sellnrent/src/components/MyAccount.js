@@ -3,9 +3,9 @@ import {useAuth} from '../contexts/AuthContext';
 
 export default function MyPage() {
     const {currentUser} = useAuth();
-    console.log(currentUser);
+
     const name = currentUser.displayName;
-    const phone = currentUser.phone;
+    const phone = currentUser.phoneNumber;
     
     return (
         <Card>

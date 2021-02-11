@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
     function signup(email, password, name, phone) {
         console.log(phone);
         let user = auth.createUserWithEmailAndPassword(email, password).then(userCredential => {
-            userCredential.user.updateProfile({displayName: name, phone: phone})
+            userCredential.user.updateProfile({displayName: name, phoneNumber: phone})
         });
         return user;
     }
