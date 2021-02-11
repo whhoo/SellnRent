@@ -7,7 +7,7 @@ export default function Drop(props){
     const history = useHistory();
     const [dropdownOpen, setDropdownOpen] = useState('');
 
-    const { logout } = useAuth();
+    const { currentUser, logout } = useAuth();
 
     function handleLogout() {
         logout();
@@ -18,7 +18,7 @@ export default function Drop(props){
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle} className="drop">
                     <DropdownToggle caret>
-                        Name Surname
+                        {currentUser.displayName}
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={() => window.location = '/account'}>My Account</DropdownItem>
