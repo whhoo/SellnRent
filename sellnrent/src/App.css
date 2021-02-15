@@ -56,3 +56,6 @@ body{
   display: flex;
   justify-content: center;
 }
+.linkMyPost {
+  margin-right: 10px;
+}

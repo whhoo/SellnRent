@@ -38,7 +38,7 @@ export default function MyPage() {
                 </div>
                 <br/>
                 <div className="buttonPostsChanges">
-                    Go to
+                    <span className='linkMyPost'>Go to</span>
                     <Link to="/myposts"> My posts</Link>
                 </div>
                 <br/>
