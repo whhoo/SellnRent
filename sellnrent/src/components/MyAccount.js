@@ -1,11 +1,20 @@
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Card } from 'react-bootstrap';
 import {useAuth} from '../contexts/AuthContext';
+import { db } from '../firebase';
+import { Link } from 'react-router-dom';
 
 export default function MyPage() {
     const {currentUser} = useAuth();
-    console.log(currentUser);
-    const name = currentUser.displayName;
-    const phone = currentUser.phone;
+    const [info, setInfo] = useState({});
+
+    useEffect(() => {
+        db.collection("users").where("email", "==", currentUser.email)
+        .get()
+        .then(docs => {
+            docs.forEach(doc => setInfo(doc.data()))
+        })
+    },[currentUser]);
     
     return (
         <Card>
@@ -20,12 +29,21 @@ export default function MyPage() {
                         <h6>Phone number</h6>
                     </div>
                     <div>
-                        <h6>{name}</h6>
+                        <h6>{info.name}</h6>
                         <br/>
-                        <h6>{currentUser.email}</h6>
+                        <h6>{info.email}</h6>
                         <br/>
-                        <h6>{phone}</h6>
+                        <h6>{info.phone}</h6>
                     </div>
+                </div>
+                <br/>
+                <div className="buttonPostsChanges">
+                    Go to
+                    <Link to="/myposts"> My posts</Link>
+                </div>
+                <br/>
+                <div className="buttonPostsChanges">
+                    <Link to="update">Change Password</Link>
                 </div>
             </Card.Body>
         </Card>

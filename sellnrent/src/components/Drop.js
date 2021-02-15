@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { useAuth } from '../contexts/AuthContext';
 import {useHistory} from 'react-router-dom';
+import { db } from '../firebase';
 
-export default function Drop(props){
+export default function Drop(){
     const history = useHistory();
     const [dropdownOpen, setDropdownOpen] = useState('');
+    const [name, setName] = useState('');
 
     const { logout, currentUser } = useAuth();
+    
+    useEffect(() => {
+        db.collection("users").where("email", "==", currentUser.email)
+        .get()
+        .then(docs => {
+            docs.forEach(doc => setName(doc.data().name))
+        })
+    },[currentUser]);
 
     function handleLogout() {
         logout();
@@ -18,7 +28,7 @@ export default function Drop(props){
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle} className="drop">
                     <DropdownToggle caret>
-                        {currentUser.displayName}
+                        {name}
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={() => window.location = '/account'}>My Account</DropdownItem>

@@ -25,8 +25,7 @@ export default function Signup() {
         try {
             setError('');
             setLoading(true)
-            console.log(phoneRef.current.value)
-            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value + ' ' + surnameRef.current.value, +phoneRef.current.value);
+            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value + ' ' + surnameRef.current.value, phoneRef.current.value);
             history.push('/');
         } catch {
             setError('Failed to create an account');

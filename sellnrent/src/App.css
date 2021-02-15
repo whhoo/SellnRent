@@ -52,3 +52,7 @@ body{
   margin-left: 150px;
   width: 30%;
 }
+.buttonPostsChanges {
+  display: flex;
+  justify-content: center;
+}
