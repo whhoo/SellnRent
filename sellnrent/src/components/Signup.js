@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function Signup() {
     const nameRef = useRef();
@@ -10,7 +10,7 @@ export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup} = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -31,7 +31,7 @@ export default function Signup() {
             setError('Failed to create an account');
         }
         setLoading(false)
-        
+
     }
 
     return (
