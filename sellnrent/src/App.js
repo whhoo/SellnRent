@@ -11,6 +11,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import Signin from './components/Signin';
 import Header from './components/Header';
 import MyAccount from './components/MyAccount';
+import Add from './components/Add'
 
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/account">
             <MyAccount />
+          </Route>
+          <Route path="/add">
+            <Add />
           </Route>
           <Route path="/">
             <Home />
