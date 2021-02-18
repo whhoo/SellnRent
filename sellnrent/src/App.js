@@ -13,6 +13,7 @@ import Header from './components/Header';
 import MyAccount from './components/MyAccount';
 import Add from './components/Add'
 import ForgotPass from './components/ForgotPass';
+import UpdateProfile from './components/UpdateProfile';
 
 function App() {
 
@@ -45,10 +46,17 @@ function App() {
               </div>
             </Container>
           </Route>
-          <Route>
+          <Route path="/forgot">
           <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
                 <ForgotPass />
+              </div>
+            </Container>
+          </Route>
+          <Route path="/update">
+            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: "400px" }}>
+                <UpdateProfile />
               </div>
             </Container>
           </Route>
