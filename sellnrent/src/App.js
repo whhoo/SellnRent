@@ -12,6 +12,7 @@ import Signin from './components/Signin';
 import Header from './components/Header';
 import MyAccount from './components/MyAccount';
 import Add from './components/Add'
+import ForgotPass from './components/ForgotPass';
 
 function App() {
 
@@ -38,7 +39,18 @@ function App() {
             <MyAccount />
           </Route>
           <Route path="/add">
-            <Add />
+          <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: "600px" }}>
+                <Add />
+              </div>
+            </Container>
+          </Route>
+          <Route>
+          <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: "400px" }}>
+                <ForgotPass />
+              </div>
+            </Container>
           </Route>
           <Route path="/">
             <Home />

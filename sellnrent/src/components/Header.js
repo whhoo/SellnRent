@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { db } from '../firebase';
 
-export default function Header(props) {
+export default function Header() {
     const history = useHistory();
     const { logout, currentUser } = useAuth();
     const [name, setName] = useState('');
