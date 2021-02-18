@@ -2,13 +2,11 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
-import { db } from '../firebase';
 
 export default function UpdateProfile() {
-    const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { currentUser, updateEmail, updatePassword } = useAuth();
+    const { updatePassword } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -24,12 +22,6 @@ export default function UpdateProfile() {
         setError('');
         setLoading(true);
 
-        if (emailRef.current.value != currentUser.email) {
-            // db.collection("users").where("email", "==", currentUser.email).update({
-            //     email: emailRef.current.value
-            // })
-            promises.push(updateEmail(emailRef.current.value));
-        }
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value));
         }
@@ -50,10 +42,6 @@ export default function UpdateProfile() {
                     <h2 className="text-center mb-4">Update Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required defaultValue={currentUser.email} />
-                        </Form.Group>
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required placeholder="Leave blank to keep the same" />

@@ -43,7 +43,7 @@ export default function MyPage() {
                 </div>
                 <br/>
                 <div className="buttonPostsChanges">
-                    <Link to="/update">Update Profile</Link>
+                    <Link to="/update">Change Password</Link>
                 </div>
             </Card.Body>
         </Card>
