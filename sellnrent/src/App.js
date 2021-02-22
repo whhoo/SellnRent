@@ -14,13 +14,13 @@ import MyAccount from './components/MyAccount';
 import Add from './components/Add'
 import ForgotPass from './components/ForgotPass';
 import UpdateProfile from './components/UpdateProfile';
+import SearchResults from './components/SearchResults';
 
 function App() {
-
   return (
     <AuthProvider>
       <Router >
-        <Header/>
+        <Header />
         <Switch>
           <Route path="/signup">
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
@@ -40,14 +40,14 @@ function App() {
             <MyAccount />
           </Route>
           <Route path="/add">
-          <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "600px" }}>
                 <Add />
               </div>
             </Container>
           </Route>
           <Route path="/forgot">
-          <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
                 <ForgotPass />
               </div>
@@ -57,6 +57,13 @@ function App() {
             <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
                 <UpdateProfile />
+              </div>
+            </Container>
+          </Route>
+          <Route path="/search/:location/:status">
+            <Container className="d-flex " style={{ minHeight: "100vh" }}>
+              <div className="w-100">
+                <SearchResults />
               </div>
             </Container>
           </Route>
