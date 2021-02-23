@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, Card, Col, ToggleButton, ButtonGroup } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { db, storage } from '../firebase';
@@ -9,6 +9,8 @@ export default function Add() {
     const [status, setStatus] = useState('sell');
     const [images, setImages] = useState([]);
     const [postIndex, setPostIndex] = useState(0);
+    const [urls, setUrls] = useState([]);
+    const [userInfo, setUserInfo] = useState(null);
     const { currentUser } = useAuth();
     const history = useHistory();
     const types = [
@@ -34,50 +36,54 @@ export default function Add() {
 
     const data = {}
 
-
-
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-
-        let price = `${priceRef.current.value} ${exchRef.current.value}`
-
-        if (status === 'rent') price += `/${periodRef.current.value}`
-
-        data.title = `post ${postIndex}`;
-        data.author = currentUser.email;
-        data.status = status;
-        data.type = type;
-        data.city = cityRef.current.value;
-        data.street = streetRef.current.value;
-        data.building = buildingRef.current.value;
-        data.apart = apartmentRef.current.value;
-        data.house = houseRef.current.value;
-        data.rooms = roomsRef.current.value;
-        data.area = areaRef.current.value;
-        data.descr = descrRef.current.value;
-        data.price = price;
-        data.imgs = [];
-
-
-        images.forEach((image, index) => {
-            debugger
-            const uploadTask = storage.ref(`images/${currentUser.email}/post ${postIndex}/${index}`).put(image);
-            storage
-                .ref(`images/${currentUser.email}/post ${postIndex}/${index}`)
-                .getDownloadURL()
-                .then(url => {
-                    data.imgs.push(url);
+       
+        images.map(async (image) => {
+                // debugger
+                const imageRef = storage.ref(`${currentUser.email}/${image.name}`);
+                imageRef.put(image).then(()=>{
+                    imageRef.getDownloadURL().then((url)=>{
+                        setUrls((prev)=>[...prev,url])
+                    })
                 })
-                .catch(err => console.log(err))
-        });
-
-        db.collection(`posts`).doc(`post ${postIndex}`).set(data);
-
-
-        setPostIndex(postIndex + 1);
-
-        history.push('/');
+            })    
     }
+
+    useEffect(() => {
+        if (!currentUser) return;
+        db.collection("users").where("email", "==", currentUser.email)
+            .get()
+            .then(docs => {
+                docs.forEach(doc => setUserInfo(doc.data()))
+            })
+    }, [currentUser]);
+
+    useEffect (() => {
+        if (urls.length > 0 && urls.length === images.length ) {
+            let price = `${priceRef.current.value} ${exchRef.current.value}`;
+            if (status === 'rent') price += `/${periodRef.current.value}`
+            data.title = `post ${postIndex}`;
+            data.authorEmail = currentUser.email;
+            data.authorPhone = userInfo.phone;
+            data.authorFullName = userInfo.name;
+            data.status = status;
+            data.type = type;
+            data.city = cityRef.current.value;
+            data.street = streetRef.current.value;
+            data.building = buildingRef.current.value;
+            data.apart = apartmentRef.current.value;
+            data.house = houseRef.current.value;
+            data.rooms = roomsRef.current.value;
+            data.area = areaRef.current.value;
+            data.descr = descrRef.current.value;
+            data.price = price;
+            data.imgs = urls;
+            db.collection(`posts`).add(data);
+            setPostIndex(postIndex + 1);
+            history.push('/');
+        }
+    },[urls])
 
     function handleImgChange(e) {
         let arr = [];
@@ -184,7 +190,7 @@ export default function Add() {
                                     <option value="amd">AMD</option>
                                 </Form.Control>
                             </Col>
-                            <Col hidden={status === "sell"} w>
+                            <Col hidden={status === "sell"}>
                                 <Form.Label>per</Form.Label>
                             </Col>
                             <Col>

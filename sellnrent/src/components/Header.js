@@ -13,7 +13,7 @@ export default function Header() {
     let userHeader = <><Navbar.Brand href="/add">Add</Navbar.Brand>
         <NavDropdown title={name} id="basic-nav-dropdown">
             <NavDropdown.Item href="/account">My Account</NavDropdown.Item>
-            <NavDropdown.Item href="/posts">My Posts</NavDropdown.Item>
+            <NavDropdown.Item href="/myposts">My Posts</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={handleLogout}>Log Out</NavDropdown.Item>
         </NavDropdown></>

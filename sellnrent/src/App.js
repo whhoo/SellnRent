@@ -15,6 +15,7 @@ import Add from './components/Add'
 import ForgotPass from './components/ForgotPass';
 import UpdateProfile from './components/UpdateProfile';
 import SearchResults from './components/SearchResults';
+import MyPosts from './components/MyPosts';
 
 function App() {
   return (
@@ -66,6 +67,9 @@ function App() {
                 <SearchResults />
               </div>
             </Container>
+          </Route>
+          <Route path="/myposts">
+            <MyPosts/>
           </Route>
           <Route path="/">
             <Home />
