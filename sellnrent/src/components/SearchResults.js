@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Card, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { db, storage } from '../firebase';
 
@@ -12,11 +13,9 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (status !== 'sell' || status !== 'rent') {
-            debugger
             db.collection("posts").where('city', '==', location)
                 .get()
                 .then(posts => {
-                    debugger
                     let arr = []
                     posts.forEach(post => arr.push(post.data()));
                     console.log(arr)
@@ -34,34 +33,27 @@ export default function SearchResults() {
                 .catch(err => console.log(err))
         }
 
-        let arr = [];
-        debugger
-
-        posts.forEach(post => {
-            debugger
-            for (let i = 0; i < 100; i++) {
-                debugger
-                storage.ref(`images/${currentUser.email}/${post.title}/${i}`).getDownloadURL()
-                    .then(url => {
-                        debugger
-                        let img = <img src={url} />
-                        arr.push(img);
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        return;
-                    })
-            }
-
-        });
-
-        setImgs(arr);
-
-        console.log(arr)
-
     }, [location])
 
-    return (
+    let cards = posts.map(post => {
+        post.address = `${post.street} ${post.building && post.building} ${post.apart && post.apart} ${post.house && post.house}`
+
+        return (<Card style={{ width: '18rem', margin: '10px', display: 'inline-block' }}>
+            <Card.Img variant="top" src={post.imgs[0]} />
+            <Card.Body>
+                <Card.Title>{post.price}</Card.Title>
+                <Card.Text>{post.address}</Card.Text>
+                <Button variant="primary">Show more</Button>
+            </Card.Body>
+        </Card>)
+    });
+
+
+
+
+    return (<>
         <h3>Showing available posts in {location}:</h3>
+        {cards}
+    </>
     )
 }

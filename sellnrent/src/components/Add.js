@@ -5,14 +5,15 @@ import { db, storage } from '../firebase';
 import { useHistory } from 'react-router-dom';
 
 export default function Add() {
-    const [type, setType] = useState('apart');
-    const [status, setStatus] = useState('sell');
+    const [typeValue, setTypeValue] = useState('apart');
+    const [statusValue, setStatusValue] = useState('sell');
     const [images, setImages] = useState([]);
     const [postIndex, setPostIndex] = useState(0);
     const [urls, setUrls] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
     const { currentUser } = useAuth();
     const history = useHistory();
+
     const types = [
         { name: 'Apartment', value: 'apart' },
         { name: 'House', value: 'house' },
@@ -38,16 +39,16 @@ export default function Add() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-       
+
         images.map(async (image) => {
-                // debugger
-                const imageRef = storage.ref(`${currentUser.email}/${image.name}`);
-                imageRef.put(image).then(()=>{
-                    imageRef.getDownloadURL().then((url)=>{
-                        setUrls((prev)=>[...prev,url])
-                    })
+            // debugger
+            const imageRef = storage.ref(`${currentUser.email}/${image.name}`);
+            imageRef.put(image).then(() => {
+                imageRef.getDownloadURL().then((url) => {
+                    setUrls((prev) => [...prev, url])
                 })
-            })    
+            })
+        })
     }
 
     useEffect(() => {
@@ -59,16 +60,16 @@ export default function Add() {
             })
     }, [currentUser]);
 
-    useEffect (() => {
-        if (urls.length > 0 && urls.length === images.length ) {
+    useEffect(() => {
+        if (urls.length > 0 && urls.length === images.length) {
             let price = `${priceRef.current.value} ${exchRef.current.value}`;
-            if (status === 'rent') price += `/${periodRef.current.value}`
+            if (statusValue === 'rent') price += `/${periodRef.current.value}`;
             data.title = `post ${postIndex}`;
             data.authorEmail = currentUser.email;
             data.authorPhone = userInfo.phone;
             data.authorFullName = userInfo.name;
-            data.status = status;
-            data.type = type;
+            data.status = statusValue;
+            data.type = typeValue;
             data.city = cityRef.current.value;
             data.street = streetRef.current.value;
             data.building = buildingRef.current.value;
@@ -83,7 +84,7 @@ export default function Add() {
             setPostIndex(postIndex + 1);
             history.push('/');
         }
-    },[urls])
+    }, [urls])
 
     function handleImgChange(e) {
         let arr = [];
@@ -107,8 +108,8 @@ export default function Add() {
                                             variant="secondary"
                                             value={status.value}
                                             name="status"
-                                            checked={status === status.value}
-                                            onChange={(e) => setStatus(e.currentTarget.value)}
+                                            checked={statusValue === status.value}
+                                            onChange={(e) => setStatusValue(e.currentTarget.value)}
                                         >
                                             {status.name}
                                         </ToggleButton>
@@ -124,8 +125,8 @@ export default function Add() {
                                             variant="secondary"
                                             value={type.value}
                                             name="type"
-                                            checked={type === type.value}
-                                            onChange={(e) => setType(e.currentTarget.value)}
+                                            checked={typeValue === type.value}
+                                            onChange={(e) => setTypeValue(e.currentTarget.value)}
                                         >
                                             {type.name}
                                         </ToggleButton>
@@ -136,34 +137,34 @@ export default function Add() {
                     </Form.Group>
                     <Form.Group id="city">
                         <Form.Label>City</Form.Label>
-                        <Form.Control type="text" ref={cityRef} />
+                        <Form.Control type="text" ref={cityRef} required />
                     </Form.Group>
                     <Form.Group id="street">
                         <Form.Label>Street</Form.Label>
-                        <Form.Control type="text" ref={streetRef} />
+                        <Form.Control type="text" ref={streetRef} required />
                     </Form.Group>
 
-                    <Form.Group id="building" hidden={type === 'house'}>
+                    <Form.Group id="building" hidden={typeValue === 'house'}>
                         <Form.Label>Building</Form.Label>
-                        <Form.Control type="text" ref={buildingRef} />
+                        <Form.Control type="text" ref={buildingRef} required />
                     </Form.Group>
-                    <Form.Group id="apart" hidden={type === 'house'}>
+                    <Form.Group id="apart" hidden={typeValue === 'house'}>
                         <Form.Label>Apartment</Form.Label>
-                        <Form.Control type="text" ref={apartmentRef} />
+                        <Form.Control type="text" ref={apartmentRef} required />
                     </Form.Group>
-                    <Form.Group id="house" hidden={type === 'apart'}>
+                    <Form.Group id="house" hidden={typeValue === 'apart'}>
                         <Form.Label>House</Form.Label>
-                        <Form.Control type="text" ref={houseRef} />
+                        <Form.Control type="text" ref={houseRef} required />
                     </Form.Group>
                     <Form.Group id="rooms">
                         <Form.Label>Number of rooms</Form.Label>
-                        <Form.Control type="number" ref={roomsRef} min="1" max="10" />
+                        <Form.Control type="number" ref={roomsRef} min="1" max="10" required />
                     </Form.Group>
                     <Form.Group id="area">
                         <Form.Label>Area</Form.Label>
                         <Form.Row>
                             <Col>
-                                <Form.Control type="number" ref={areaRef} min="30" />
+                                <Form.Control type="number" ref={areaRef} min="30" required />
                             </Col>
                             <Col>
                                 <Form.Label>sqm</Form.Label>
@@ -172,17 +173,17 @@ export default function Add() {
                     </Form.Group>
                     <Form.Group id="descr">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} ref={descrRef} />
+                        <Form.Control as="textarea" rows={3} ref={descrRef} required />
                     </Form.Group>
                     <Form.Group id="pictures">
                         <Form.Label>Pictures</Form.Label>
-                        <Form.File accept="image**" multiple onChange={handleImgChange} />
+                        <Form.File accept="image**" multiple onChange={handleImgChange} required />
                     </Form.Group>
                     <Form.Group id="price">
                         <Form.Label>Price</Form.Label>
                         <Form.Row>
                             <Col>
-                                <Form.Control type="number" ref={priceRef} />
+                                <Form.Control type="number" ref={priceRef} required />
                             </Col>
                             <Col>
                                 <Form.Control as="select" ref={exchRef} >
@@ -190,11 +191,11 @@ export default function Add() {
                                     <option value="amd">AMD</option>
                                 </Form.Control>
                             </Col>
-                            <Col hidden={status === "sell"}>
+                            <Col hidden={statusValue === "sell"}>
                                 <Form.Label>per</Form.Label>
                             </Col>
                             <Col>
-                                <Form.Control as="select" ref={periodRef} hidden={status === "sell"} >
+                                <Form.Control as="select" ref={periodRef} hidden={statusValue === "sell"} >
                                     <option value="day">day</option>
                                     <option value="month">month</option>
                                 </Form.Control>

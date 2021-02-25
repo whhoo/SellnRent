@@ -33,7 +33,10 @@ body{
   left: 520px;
   bottom: 35px;
 }
-
+.checkbox{
+  position: relative;
+  left: 43%;
+}
 .buycheck{
   position: relative;
   left: 600px;
